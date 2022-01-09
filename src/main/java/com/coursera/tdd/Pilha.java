@@ -1,11 +1,15 @@
 package main.java.com.coursera.tdd;
 
+import test.com.coursera.tdd.PilhaCheiaException;
+import test.com.coursera.tdd.PilhaVaziaException;
+
 public class Pilha {
 
-    private Object[] elementos = new Object[10];
+    private Object[] elementos;
     private int quantidade = 0;
 
-    public Pilha (){
+    public Pilha (int maximo){
+        elementos = new Object[maximo];
     }
 
     public boolean estaVazia() {
@@ -17,6 +21,8 @@ public class Pilha {
     }
 
     public void empilha(Object elemento) {
+        if (quantidade == elementos.length)
+            throw new PilhaCheiaException("Não é possível empilhar mais elementos");
         this.elementos[quantidade] = elemento;
         quantidade++;
     }
@@ -26,6 +32,8 @@ public class Pilha {
     }
 
     public Object desempilha() {
+        if(estaVazia())
+            throw new PilhaVaziaException("Não é possível desempilhar.");
         Object topo = topo();
         quantidade--;
         return topo;
